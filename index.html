@@ -19,6 +19,16 @@
 			}
 		</script>
 		<script type="text/javascript">
+			var appendHtml = function(owner, data) {
+				var tmps = data.split("\n</" + "script>", 2);
+				var body = tmps[1];
+				var js = tmps[0].replace(/<script[^\n]+/, "");
+				var script = document.createElement("script");
+				script.type="text/javascript";
+				script.innerHTML = js;
+				owner.html(body);
+				owner.append(script);
+			}
 			var webRoot = "./";
 			$.ui.autoLaunch = false;
 			var init = function() {
@@ -29,6 +39,13 @@
 				else {
 					$(document.location.hash).attr("selected", true); // これでHashアクセスされた場合にデフォルト表示を切り替えることができる。
 				}
+				$("#content > div").each(function(i) {
+					var data = $("#content > div")[i].id;
+					var script = document.createElement("script");
+					script.type="text/javascript";
+					script.innerHTML = "var " +data + " = function() {$.get('content/" + data + ".html', function(data){appendHtml($('#" + data + "'), data);});}";
+					$("head").append(script);
+				});
 				window.setTimeout(function(){
 					$.ui.launch();
 				}, 50);
@@ -49,9 +66,9 @@
 			<div id="header">
 			</div>
 			<div id="content">
-				<div id="main" class="panel" title="ホーム">
+				<div id="main" data-load="main" class="panel">
 				</div>
-				<div id="information" class="panel" title="情報">
+				<div id="information" data-load="information" class="panel">
 				</div>
 			</div>
 			<div id="navbar">
