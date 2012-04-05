@@ -25,7 +25,7 @@
 				$.ui.backButtonText = "Back";
 				window.setTimeout(function(){
 					$.ui.launch();
-				}, 50);
+				}, 3000);
 			}
 			document.addEventListener("DOMContentLoaded", init, false);
 			var onDeviceReady = function() {
@@ -40,6 +40,11 @@
 	</head>
 	<body>
 		<div id="jQUi">
+			<div id="splashscreen" class="ui-loader">
+				<img src="../jqmobi/kitchensink/images/splash.png">
+				<br /><br />
+				<span class="ui-icon ui-icon-loading spin"></span><h1>Starting app</h1>
+			</div>
 			<div id="header">
 			</div>
 			<div id="content">
