@@ -1,0 +1,15 @@
+ここではjqmobiの動作解説用のデータを作成し、タグをつけておきたいとおもいます。
+
+jqmobiのデータをhttps://github.com/appmobi/jq.mobiからcloneしてきて、サイトには次のように配置してください。
+
+サイトの適当な場所 --- jqmobi/内容
+                |
+                \- jqmobitest/内容
+
+改変等はご自由にどうぞ。
+
+質問や連絡したいこと等ありましたら
+http://taktodtools.blogspot.jp/
+http://twitter.com/#!/taktod
+poepoemix@hotmail.com
+までどうぞ。
