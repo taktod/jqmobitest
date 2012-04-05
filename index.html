@@ -23,9 +23,15 @@
 			$.ui.autoLaunch = false;
 			var init = function() {
 				$.ui.backButtonText = "Back";
+				if(document.location.hash == "") {
+					$("#main").attr("selected", true); // なにもないときには、mainのパネルを表示する候補に指定
+				}
+				else {
+					$(document.location.hash).attr("selected", true); // これでHashアクセスされた場合にデフォルト表示を切り替えることができる。
+				}
 				window.setTimeout(function(){
 					$.ui.launch();
-				}, 3000);
+				}, 50);
 			}
 			document.addEventListener("DOMContentLoaded", init, false);
 			var onDeviceReady = function() {
@@ -40,15 +46,10 @@
 	</head>
 	<body>
 		<div id="jQUi">
-			<div id="splashscreen" class="ui-loader">
-				<img src="../jqmobi/kitchensink/images/splash.png">
-				<br /><br />
-				<span class="ui-icon ui-icon-loading spin"></span><h1>Starting app</h1>
-			</div>
 			<div id="header">
 			</div>
 			<div id="content">
-				<div id="main" class="panel" title="ホーム" selected="true">
+				<div id="main" class="panel" title="ホーム">
 				</div>
 				<div id="information" class="panel" title="情報">
 				</div>
