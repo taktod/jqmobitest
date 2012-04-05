@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<title>jqmobiのテスト</title>
+		<link rel="stylesheet" type="text/css" href="../jqmobi/kitchensink/icons.css" />
+		<link rel="stylesheet" type="text/css" href="../jqmobi/kitchensink/jq.ui.css" />
+		<script type="text/javascript" charset="UTF-8" src="../jqmobi/ui/jq.ui.min.js"></script>
+		<script>
+			if(!((window.DocumentTouch && document instanceof DocumentTouch) || 'ontouchstart' in window)) {
+				var script = document.createElement("script");
+				script.src = "../jqmobi/touch.js";
+				var tag = $("head").append(script);
+				$.os.android = true;
+				$.os.desktop = true;
+			}
+		</script>
+		<script type="text/javascript">
+			var webRoot = "./";
+			$.ui.autoLaunch = false;
+			var init = function() {
+				$.ui.backButtonText = "Back";
+				window.setTimeout(function(){
+					$.ui.launch();
+				}, 50);
+			}
+			document.addEventListener("DOMContentLoaded", init, false);
+			var onDeviceReady = function() {
+				AppMobi.device.setRotateOrientation("portrait");
+				AppMobi.device.setAutoRotate(false);
+				webRoot = AppMobi.webRoot + "/";
+				
+				AppMobi.device.hideSplashScreen();
+			};
+			document.addEventListener("appMobi.device.ready", onDeviceReady, false);
+		</script>
+	</head>
+	<body>
+		<div id="jQUi">
+			<div id="header">
+			</div>
+			<div id="content">
+				<div id="main" class="panel" title="ホーム" selected="true">
+				</div>
+				<div id="information" class="panel" title="情報">
+				</div>
+			</div>
+			<div id="navbar">
+				<!-- 置くなら４つまで -->
+				<a href="#main" id="navbar_home1" class="icon home">ホーム</a>
+				<a href="#information" id="navbar_home4" class="icon info">情報</a>
+			</div>
+<nav>
+</nav>
+		</div>
+	</body>
+</html>
