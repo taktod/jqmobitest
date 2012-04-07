@@ -1,0 +1,60 @@
+<script type="text/javascript">
+// タイトルの記述
+$.ui.setTitle("カルーセル");
+// プログラムをここに記述
+var init_carousel = function() {
+	$("#carousel_demo").carousel({
+		pagingDiv: "carousel_dots",
+		pagingCssName: "carousel_paging",
+		pagingCssNameSelected: "carousel_paging_selected",
+		preventDefaults:false
+	});
+}
+init_carousel();
+</script>
+<style>
+.carousel_paging {
+	border-radius: 10px;
+	
+	background: #ccc;
+	width: 10px;
+	height: 10px;
+	float: left;
+}
+
+.carousel_paging_selected {
+	border-radius: 10px;
+	
+	background: #000;
+	width: 10px;
+	height: 10px;
+	float: left;
+}
+
+.spacer {
+	width: 10px;
+	float: left;
+}
+
+.carousel_content {
+	-webkit-transform: translate3d(0, 0, 0);
+}
+</style>
+<div id="carousel_dots" style="margin:0 auto; clear: both; position: absolute; top: 90%; z-index: 200"></div>
+<div id="carousel_demo" style="display:block;height:100%;width:100%;color:black;">
+	<div style="background: yellow;">
+		<a href="javascript:alert('test');">
+			横向きカルーセル
+		</a><br />
+		１枚目
+	</div>
+	<div style="background: green;">
+		２枚目
+	</div>
+	<div style="background: blue;">
+		３枚目
+	</div>
+	<div style="background: pink;">
+		４枚目
+	</div>
+</div>

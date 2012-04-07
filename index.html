@@ -10,10 +10,11 @@
 		<link rel="stylesheet" type="text/css" href="http://taktodtools.appspot.com/jqmobi/kitchensink/jq.ui.css" />
 		<script type="text/javascript" charset="UTF-8" src="http://taktodtools.appspot.com/jqmobi/jq.mobi.min.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="http://taktodtools.appspot.com/jqmobi/ui/jq.ui.min.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="http://taktodtools.appspot.com/jqmobi/plugins/jq.carousel.js"></script>
 		<script>
 			if(!((window.DocumentTouch && document instanceof DocumentTouch) || 'ontouchstart' in window)) {
 				var script = document.createElement("script");
-				script.src = "../jqmobi/touch.js";
+				script.src = "http://taktodtools.appspot.com/jqmobi/touch.js";
 				var tag = $("head").append(script);
 				$.os.android = true;
 				$.os.desktop = true;
@@ -73,6 +74,8 @@
 				</div>
 				<div id="list" data-load="list" class="panel">
 				</div>
+				<div id="carousel" data-load="carousel" class="panel">
+				</div>
 			</div>
 			<div id="navbar">
 				<!-- 置くなら４つまで -->
@@ -80,8 +83,8 @@
 				<a href="#list" id="navbar_home2" class="icon star">リスト</a>
 				<a href="#information" id="navbar_home4" class="icon info">情報</a>
 			</div>
-<nav>
-</nav>
+			<nav>
+			</nav>
 		</div>
 	</body>
 </html>
