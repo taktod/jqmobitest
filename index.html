@@ -11,56 +11,70 @@
 		<script type="text/javascript" charset="UTF-8" src="http://taktodtools.appspot.com/jqmobi/jq.mobi.min.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="http://taktodtools.appspot.com/jqmobi/ui/jq.ui.min.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="http://taktodtools.appspot.com/jqmobi/plugins/jq.carousel.js"></script>
-		<script>
+		<script type="text/javascript">
+// 初期化処理
+(function(){
+	var setup = function() {
+		this.initialize.apply(this, arguments);
+		appendHtml = function(owner, data) {
+			var tmps = data.split("\n</" + "script>", 2);
+			var body = tmps[1];
+			var js = tmps[0].replace(/<script[^\n]+/, "");
+			var script = document.createElement("script");
+			script.type="text/javascript";
+			script.innerHTML = js;
+			owner.html(body);
+			owner.append(script);
+		};
+	};
+	setup.prototype = {
+		initialize: function() { // 初期化
+			var _this = this;
+			this.setupPc();
+			var webRoot = "./";
+			$.ui.autoLaunch = false;
+			document.addEventListener("DOMContentLoaded", function() {
+				_this.onInitialize();
+			}, false);
+			document.addEventListener("appMobi.device.ready", this.onDeviceReady, false);
+		},
+		setupPc: function() {
 			if(!((window.DocumentTouch && document instanceof DocumentTouch) || 'ontouchstart' in window)) {
 				var script = document.createElement("script");
 				script.src = "http://taktodtools.appspot.com/jqmobi/touch.js";
-				var tag = $("head").append(script);
+				$("head").append(script);
 				$.os.android = true;
 				$.os.desktop = true;
 			}
-		</script>
-		<script type="text/javascript">
-			var appendHtml = function(owner, data) {
-				var tmps = data.split("\n</" + "script>", 2);
-				var body = tmps[1];
-				var js = tmps[0].replace(/<script[^\n]+/, "");
+		},
+		onInitialize: function() {
+			$.ui.backButtonText = "Back";
+			if(document.location.hash == "" || $(document.location.hash).id == undefined) {
+				$("#main").attr("selected", true); // なにもないときには、mainのパネルを表示する候補に指定
+			}
+			else {
+				$(document.location.hash).attr("selected", true); // これでHashアクセスされた場合にデフォルト表示を切り替えることができる。
+			}
+			$("#content > div").each(function(i) {
+				var data = $("#content > div")[i].id;
 				var script = document.createElement("script");
 				script.type="text/javascript";
-				script.innerHTML = js;
-				owner.html(body);
-				owner.append(script);
-			}
-			var webRoot = "./";
-			$.ui.autoLaunch = false;
-			var init = function() {
-				$.ui.backButtonText = "Back";
-				if(document.location.hash == "") {
-					$("#main").attr("selected", true); // なにもないときには、mainのパネルを表示する候補に指定
-				}
-				else {
-					$(document.location.hash).attr("selected", true); // これでHashアクセスされた場合にデフォルト表示を切り替えることができる。
-				}
-				$("#content > div").each(function(i) {
-					var data = $("#content > div")[i].id;
-					var script = document.createElement("script");
-					script.type="text/javascript";
-					script.innerHTML = "var " +data + " = function() {$.get('content/" + data + ".html', function(data){appendHtml($('#" + data + "'), data);});}";
-					$("head").append(script);
-				});
-				window.setTimeout(function(){
-					$.ui.launch();
-				}, 50);
-			}
-			document.addEventListener("DOMContentLoaded", init, false);
-			var onDeviceReady = function() {
-				AppMobi.device.setRotateOrientation("portrait");
-				AppMobi.device.setAutoRotate(false);
-				webRoot = AppMobi.webRoot + "/";
-				
-				AppMobi.device.hideSplashScreen();
-			};
-			document.addEventListener("appMobi.device.ready", onDeviceReady, false);
+				script.innerHTML = "var " +data + " = function() {$.get('content/" + data + ".html', function(data){appendHtml($('#" + data + "'), data);});}";
+				$("head").append(script);
+			});
+			window.setTimeout(function(){
+				$.ui.launch();
+			}, 50);
+		},
+		onDeviceReady: function() {
+			AppMobi.device.setRotateOrientation("portrait");
+			AppMobi.device.setAutoRotate(false);
+			webRoot = AppMobi.webRoot + "/";
+			AppMobi.device.hideSplashScreen();
+		}
+	};
+	new setup();
+})();
 		</script>
 	</head>
 	<body>
